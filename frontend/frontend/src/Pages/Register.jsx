@@ -21,16 +21,21 @@ function Register() {
     e.preventDefault();
 
     try {
-      const formData = new FormData();
-      Object.keys(form).forEach((key) => {
-        formData.append(key, form[key]);
+      const res = await api.post("api/accounts/register/", {
+        username: form.username,
+        password: form.password,
+        age: Number(form.age),
+        height: Number(form.height),
+        weight: Number(form.weight),
+        goal: form.goal,
+        gym_type: form.gym_type,
       });
 
-      const res = await api.post("api/accounts/register/", formData);
-      alert(res.data.message);
+      alert("Registration successful");
       window.location.href = "/login";
     } catch (err) {
-      alert("Registration failed");
+      console.error(err.response?.data);
+      alert(JSON.stringify(err.response?.data));
     }
   };
 
@@ -40,32 +45,16 @@ function Register() {
         <h2>User Register</h2>
 
         <form onSubmit={handleRegister}>
-          <input
-            name="username"
-            placeholder="Username"
-            onChange={handleChange}
-          />
-
+          <input name="username" placeholder="Username" onChange={handleChange} />
           <input
             name="password"
             type="password"
             placeholder="Password"
             onChange={handleChange}
           />
-
           <input name="age" placeholder="Age" onChange={handleChange} />
-
-          <input
-            name="height"
-            placeholder="Height (cm)"
-            onChange={handleChange}
-          />
-
-          <input
-            name="weight"
-            placeholder="Weight (kg)"
-            onChange={handleChange}
-          />
+          <input name="height" placeholder="Height (cm)" onChange={handleChange} />
+          <input name="weight" placeholder="Weight (kg)" onChange={handleChange} />
 
           <select name="goal" onChange={handleChange}>
             <option value="weight_loss">Weight Loss</option>
@@ -73,24 +62,9 @@ function Register() {
             <option value="fitness">General Fitness</option>
           </select>
 
-          <input
-            name="gym_type"
-            placeholder="Gym Type"
-            onChange={handleChange}
-          />
+          <input name="gym_type" placeholder="Gym Type" onChange={handleChange} />
 
           <button type="submit">Register</button>
-
-          {/* ✅ INLINE LOGIN LINK */}
-          <p className="auth-switch">
-            Already registered?{" "}
-            <span
-              className="auth-link"
-              onClick={() => (window.location.href = "/login")}
-            >
-              Login
-            </span>
-          </p>
         </form>
       </div>
     </div>
