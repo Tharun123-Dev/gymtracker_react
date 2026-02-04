@@ -7,3 +7,4 @@ urlpatterns = [
     path("api/accounts/", include("accounts.urls")),
 
 ]
+
