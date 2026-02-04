@@ -1,5 +1,5 @@
 import { useState } from "react";
-import emailjs from "emailjs-com";
+import emailjs from "@emailjs/browser";
 import "../Styles/ContactForm.css";
 
 function ContactForm() {
@@ -11,26 +11,24 @@ function ContactForm() {
     e.preventDefault();
     setLoading(true);
 
-    const templateParams = {
-      user_email: email,
-      user_message: message,
-    };
-
     emailjs
       .send(
         "service_ge2oq38",
         "template_kbfgv0q",
-        templateParams,
+        {
+          user_email: email,
+          user_message: message,
+        },
         "8UwFK-ScFgNdU0Tqv"
       )
       .then(() => {
-        alert("!Message sent successfully 😊");
+        alert("Thanks ra! Message sent successfully 😊");
         setEmail("");
         setMessage("");
         setLoading(false);
       })
       .catch(() => {
-        alert("Oops! Try again later");
+        alert("Failed to send message");
         setLoading(false);
       });
   };
@@ -38,31 +36,32 @@ function ContactForm() {
   return (
     <div className="contact-page">
       {/* LEFT SECTION */}
-      <div className="contact-info">
+      <div className="contact-left">
         <h1>Contact Us</h1>
         <p>
-          Hyderabad Located 
+          Hyderabad lo unnam 😊  
+          Gym, trainer, diet & fitness related queries anni ikkada pampandi.
         </p>
 
-        <div className="info-box">
+        <div className="contact-info-item">
           <span>📍</span>
           <p>Hyderabad, Telangana</p>
         </div>
 
-        <div className="info-box">
+        <div className="contact-info-item">
           <span>📧</span>
           <p>support@gymtracker.com</p>
         </div>
 
-        <div className="info-box">
+        <div className="contact-info-item">
           <span>📞</span>
           <p>+91 98765 43210</p>
         </div>
       </div>
 
       {/* RIGHT SECTION */}
-      <div className="contact-form-card">
-        <h2>Send us a message</h2>
+      <div className="contact-right">
+        <h2>Send a Message</h2>
 
         <form onSubmit={handleSubmit}>
           <input
