@@ -1,7 +1,7 @@
 // src/Pages/MainPage.jsx
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import "../Styles//MainPage.css";
+import "../Styles//Mainpage.css";
 
 function MainPage() {
   const [isDark, setIsDark] = useState(false);
