@@ -20,6 +20,37 @@ function Register() {
   const handleRegister = async (e) => {
     e.preventDefault();
 
+    // ✅ FORM VALIDATIONS
+    if (form.username.trim().length < 3) {
+      alert("Username must be at least 3 characters");
+      return;
+    }
+
+    if (form.password.length < 6) {
+      alert("Password must be at least 6 characters");
+      return;
+    }
+
+    if (!form.age || form.age < 10 || form.age > 100) {
+      alert("Enter a valid age (10–100)");
+      return;
+    }
+
+    if (!form.height || form.height < 50 || form.height > 300) {
+      alert("Enter a valid height in cm (50–300)");
+      return;
+    }
+
+    if (!form.weight || form.weight < 20 || form.weight > 300) {
+      alert("Enter a valid weight in kg (20–300)");
+      return;
+    }
+
+    if (!form.gym_type.trim()) {
+      alert("Gym type is required");
+      return;
+    }
+
     try {
       const formData = new FormData();
       Object.keys(form).forEach((key) => {
@@ -44,6 +75,7 @@ function Register() {
             name="username"
             placeholder="Username"
             onChange={handleChange}
+            required
           />
 
           <input
@@ -51,20 +83,31 @@ function Register() {
             type="password"
             placeholder="Password"
             onChange={handleChange}
+            required
           />
 
-          <input name="age" placeholder="Age" onChange={handleChange} />
+          <input
+            name="age"
+            type="number"
+            placeholder="Age"
+            onChange={handleChange}
+            required
+          />
 
           <input
             name="height"
+            type="number"
             placeholder="Height (cm)"
             onChange={handleChange}
+            required
           />
 
           <input
             name="weight"
+            type="number"
             placeholder="Weight (kg)"
             onChange={handleChange}
+            required
           />
 
           <select name="goal" onChange={handleChange}>
@@ -77,11 +120,11 @@ function Register() {
             name="gym_type"
             placeholder="Gym Type"
             onChange={handleChange}
+            required
           />
 
           <button type="submit">Register</button>
 
-          {/* ✅ INLINE LOGIN LINK */}
           <p className="auth-switch">
             Already registered?{" "}
             <span
