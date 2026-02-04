@@ -60,12 +60,14 @@ CSRF_COOKIE_SAMESITE = "None"
 CSRF_COOKIE_SECURE = False
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173",
+    # "http://localhost:5173",
+    "https://gymtracker-react.vercel.app/",
     
 ]
 CORS_ALLOW_CREDENTIALS = True
 CSRF_TRUSTED_ORIGINS = [
-    "http://localhost:5173",
+    # "http://localhost:5173",
+    "https://gymtracker-react.vercel.app/",
 ]
 
 SECRET_KEY = os.getenv("SECRET_KEY")
