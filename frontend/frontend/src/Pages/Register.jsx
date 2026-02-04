@@ -81,7 +81,7 @@ function Register() {
           <input
             name="password"
             type="password"
-            placeholder="Password"
+            placeholder="please give username as a password"
             onChange={handleChange}
             required
           />
