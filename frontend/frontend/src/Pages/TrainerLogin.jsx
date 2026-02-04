@@ -19,9 +19,18 @@ function TrainerLogin() {
     formData.append("password", password);
 
     try {
-      const res = await api.post("/api/accounts/trainer/login/", formData);
-      localStorage.setItem("trainer_id", res.data.trainer_id);
-      window.location.href = "/trainer-dashboard";
+      const res = await api.post(
+  "/api/accounts/trainer/login/",
+  {
+    trainer_id: trainerId,
+    password: password,
+  },
+  {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  }
+);
     } catch {
       alert("Trainer login failed");
     }
