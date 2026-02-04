@@ -18,21 +18,22 @@ function Register() {
   };
 
   const handleRegister = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    try {
-      const formData = new FormData();
-      Object.keys(form).forEach((key) => {
-        formData.append(key, form[key]);
-      });
+  try {
+    const res = await api.post(
+      "/api/accounts/register/",
+      form,
+      { headers: { "Content-Type": "application/json" } }
+    );
 
-      const res = await api.post("api/accounts/register/", formData);
-      alert(res.data.message);
-      window.location.href = "/login";
-    } catch (err) {
-      alert("Registration failed");
-    }
-  };
+    alert(res.data.message || "Registered successfully");
+    window.location.href = "/login";
+  } catch (err) {
+    console.error(err.response?.data || err.message);
+    alert("Registration failed. Check console.");
+  }
+};
 
   return (
     <div className="auth-page">
