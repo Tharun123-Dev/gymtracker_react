@@ -7,34 +7,26 @@ function TrainerLogin() {
   const [password, setPassword] = useState("");
 
   const handleLogin = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    if (!trainerId || !password) {
-      alert("Trainer ID and Password required");
-      return;
-    }
-
-    const formData = new FormData();
-    formData.append("trainer_id", trainerId);
-    formData.append("password", password);
-
-    try {
-      const res = await api.post(
-  "/api/accounts/trainer/login/",
-  {
-    trainer_id: trainerId,
-    password: password,
-  },
-  {
-    headers: {
-      "Content-Type": "application/json",
-    },
+  if (!trainerId || !password) {
+    alert("Trainer ID and Password required");
+    return;
   }
-);
-    } catch {
-      alert("Trainer login failed");
-    }
-  };
+
+  try {
+    const res = await api.post("/api/accounts/trainer/login/", {
+      trainer_id: trainerId,
+      password: password,
+    });
+
+    localStorage.setItem("trainer_id", res.data.trainer_id);
+    window.location.href = "/trainer-dashboard";
+  } catch (err) {
+    console.error(err);
+    alert("Trainer login failed");
+  }
+};
 
   return (
     <div className="trainer-login-page">
