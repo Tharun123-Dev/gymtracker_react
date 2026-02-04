@@ -3,7 +3,7 @@ import api from "../Api/Axios";
 import Navbar from "../Components/Navbar";
 import AdminSidebar from "../Components/AdminSidebar";
 import "../Styles/Layouts.css";
-import "../Styles/AdminDashboard.css"
+import "../Styles/Admindashboard.css"
 import Footer from "../Components/Footer";
 
 function AdminDashboard() {
