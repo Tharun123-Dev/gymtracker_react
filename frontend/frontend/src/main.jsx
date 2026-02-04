@@ -13,6 +13,8 @@ import AdminCreateTrainer from "./Pages/AdminCreateTrainer";
 import TrainerLogin from "./Pages/TrainerLogin";
 import MainPage from "./Pages/Mainpage"
 import ContactForm from "./Pages/ContactForm";
+import ThankYou from "./Pages/ThankYou";
+import Settings from "./Pages/Settings";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <BrowserRouter>
@@ -28,6 +30,10 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <Route path="/admin/create-trainer" element={<AdminCreateTrainer />} />
       <Route path="/trainer-login" element={<TrainerLogin />} />
         <Route path="/ContactForm" element={<ContactForm />} />
+                <Route path="/ThankYou" element={<ThankYou/>} />
+                <Route path="/Settings" element={<Settings/>} />
+
+
     </Routes>
   </BrowserRouter>
 );

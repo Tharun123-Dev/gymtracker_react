@@ -32,8 +32,8 @@ function MainPage() {
               <div className="profile-dropdown">
 
 <Link to="/ContactForm">My Profile</Link>
-                <Link to="/settings">Settings</Link>
-                <Link to="/logout">Logout</Link>
+                <Link to="/Settings">Settings</Link>
+                <Link to="/ThankYou">Logout</Link>
               </div>
             )}
           </div>
