@@ -1,21 +1,17 @@
 import { useState } from "react";
 import api from "../Api/Axios";
 import NavbarUser from "../Components/NavbarUser";
-import Footer from "../Components/Footer"
-
-
-
-
-
-
+import Footer from "../Components/Footer";
 import "../Styles/Layouts.css";
 
 function UserLogin() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false); // ✅ loading state
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    setLoading(true); // ✅ start buffering
 
     try {
       const formData = new FormData();
@@ -31,10 +27,11 @@ function UserLogin() {
 
       // save username for dashboard
       localStorage.setItem("username", res.data.username);
-
       window.location.href = "/user-dashboard";
     } catch (err) {
       alert("Login failed");
+    } finally {
+      setLoading(false); // ✅ stop buffering
     }
   };
 
@@ -42,27 +39,47 @@ function UserLogin() {
     <div className="app-container">
       <NavbarUser />
 
-      <div className="page-content">
-        <h2>User Login</h2>
-
+      <div
+        className="page-content"
+        style={{
+          margin: "auto",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          border: "2px solid #1d2671",
+          borderRadius: "12px",
+          padding: "20px",
+          minHeight: "300px"
+        }}
+      >
         <form onSubmit={handleLogin}>
+          <h1 style={{ textAlign: "center" }}>User Login</h1>
+
           <input
             placeholder="Username"
             value={username}
-            onChange={e => setUsername(e.target.value)}
+            onChange={(e) => setUsername(e.target.value)}
+            disabled={loading}
           />
 
           <input
             type="password"
             placeholder="Password"
             value={password}
-            onChange={e => setPassword(e.target.value)}
+            onChange={(e) => setPassword(e.target.value)}
+            disabled={loading}
           />
 
-          <button  type="submit">Login</button>
+          <button type="submit" disabled={loading}>
+            {loading ? "Logging in..." : "Login"}
+          </button>
+
+          {/* ✅ Optional spinner */}
+          {loading && <div className="spinner"></div>}
         </form>
       </div>
-      <Footer/>
+
+      <Footer />
     </div>
   );
 }

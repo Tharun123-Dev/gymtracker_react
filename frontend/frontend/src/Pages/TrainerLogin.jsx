@@ -5,6 +5,7 @@ import "../Styles/TrainerLogin.css";
 function TrainerLogin() {
   const [trainerId, setTrainerId] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false); // ✅ loading state
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -13,6 +14,8 @@ function TrainerLogin() {
       alert("Trainer ID and Password required");
       return;
     }
+
+    setLoading(true); // ✅ start buffering
 
     const formData = new FormData();
     formData.append("trainer_id", trainerId);
@@ -24,6 +27,8 @@ function TrainerLogin() {
       window.location.href = "/trainer-dashboard";
     } catch {
       alert("Trainer login failed");
+    } finally {
+      setLoading(false); // ✅ stop buffering
     }
   };
 
@@ -37,6 +42,7 @@ function TrainerLogin() {
             placeholder="Trainer ID"
             value={trainerId}
             onChange={(e) => setTrainerId(e.target.value)}
+            disabled={loading}
           />
 
           <input
@@ -44,9 +50,15 @@ function TrainerLogin() {
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            disabled={loading}
           />
 
-          <button type="submit">Login</button>
+          <button type="submit" disabled={loading}>
+            {loading ? "Logging in..." : "Login"}
+          </button>
+
+          {/* ✅ Optional spinner */}
+          {loading && <div className="spinner"></div>}
         </form>
       </div>
     </div>

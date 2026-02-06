@@ -55,7 +55,7 @@ function ContactForm() {
 
         <div className="contact-info-item">
           <span>📞</span>
-          <p>+91 98765 43210</p>
+          <p>+91 6309383826</p>
         </div>
       </div>
 

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import api from "../Api/Axios";
 import NavbarUser from "../Components/NavbarUser";
 import Footer from "../Components/Footer";
-import "../Styles/Layouts.css";
+import "../Styles/Layout.css";
 import "../Styles/UserAdding.css"; // our new CSS
 
 function UserDashboard() {
@@ -32,7 +32,7 @@ function UserDashboard() {
   // Example static gym images for carousel (you can later replace with API)
   const gymImages = [
     "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1200",
-    "https://images.unsplash.com/photo-1517836357463-2d1983e97b47?auto=format&fit=crop&w=1200",
+    "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=1200",
     "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=1200",
   ];
 

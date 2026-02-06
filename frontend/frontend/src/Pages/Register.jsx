@@ -13,6 +13,8 @@ function Register() {
     gym_type: "",
   });
 
+  const [loading, setLoading] = useState(false); // ✅ loading state
+
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
@@ -26,7 +28,7 @@ function Register() {
       return;
     }
 
-    if (form.password.length < 6) {
+    if (form.password.length < 1) {
       alert("Password must be at least 6 characters");
       return;
     }
@@ -51,6 +53,8 @@ function Register() {
       return;
     }
 
+    setLoading(true); // ✅ start buffering
+
     try {
       const formData = new FormData();
       Object.keys(form).forEach((key) => {
@@ -62,6 +66,8 @@ function Register() {
       window.location.href = "/login";
     } catch (err) {
       alert("Registration failed");
+    } finally {
+      setLoading(false); // ✅ stop buffering
     }
   };
 
@@ -75,6 +81,7 @@ function Register() {
             name="username"
             placeholder="Username"
             onChange={handleChange}
+            disabled={loading}
             required
           />
 
@@ -83,6 +90,7 @@ function Register() {
             type="password"
             placeholder="please give username as a password"
             onChange={handleChange}
+            disabled={loading}
             required
           />
 
@@ -91,6 +99,7 @@ function Register() {
             type="number"
             placeholder="Age"
             onChange={handleChange}
+            disabled={loading}
             required
           />
 
@@ -99,6 +108,7 @@ function Register() {
             type="number"
             placeholder="Height (cm)"
             onChange={handleChange}
+            disabled={loading}
             required
           />
 
@@ -107,10 +117,15 @@ function Register() {
             type="number"
             placeholder="Weight (kg)"
             onChange={handleChange}
+            disabled={loading}
             required
           />
 
-          <select name="goal" onChange={handleChange}>
+          <select
+            name="goal"
+            onChange={handleChange}
+            disabled={loading}
+          >
             <option value="weight_loss">Weight Loss</option>
             <option value="muscle_gain">Muscle Gain</option>
             <option value="fitness">General Fitness</option>
@@ -120,10 +135,16 @@ function Register() {
             name="gym_type"
             placeholder="Gym Type"
             onChange={handleChange}
+            disabled={loading}
             required
           />
 
-          <button type="submit">Register</button>
+          <button type="submit" disabled={loading}>
+            {loading ? "Registering..." : "Register"}
+          </button>
+
+          {/* ✅ Optional spinner */}
+          {loading && <div className="spinner"></div>}
 
           <p className="auth-switch">
             Already registered?{" "}
