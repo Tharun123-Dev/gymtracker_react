@@ -96,8 +96,8 @@ function MainPage() {
       <footer className="footer">
         <p>&copy; 2026 GymTracker. All rights reserved.</p>
         <p>
-          <Link to="/about">About</Link> · <Link to="/contact">Contact</Link> ·{" "}
-          <Link to="/privacy">Privacy</Link>
+          <Link to="/ContactForm">About</Link> · <Link to="/ContactForm">Contact</Link> ·{" "}
+          <Link to="/ContactForm">Privacy</Link>
         </p>
       </footer>
     </div>

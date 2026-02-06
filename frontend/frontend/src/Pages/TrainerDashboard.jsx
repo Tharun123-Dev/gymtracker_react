@@ -16,6 +16,27 @@ function TrainerDashboard() {
     description: ""
   });
 
+  // 🔹 NEW: stats / extra data (you can later fetch from backend)
+  const [stats, setStats] = useState({
+    totalUsers: 0,
+    presentToday: 0,
+    sessionsToday: 0
+  });
+
+  // 🔹 NEW: today’s sessions mock (or fetch from API later)
+  const [sessions, setSessions] = useState([
+    { time: "08:00", client: "Rahul", type: "Strength", status: "upcoming" },
+    { time: "10:00", client: "Priya", type: "Cardio", status: "completed" },
+    { time: "16:00", client: "Vikas", type: "HIIT", status: "upcoming" }
+  ]);
+
+  // 🔹 NEW: recent updates feed (mock; later from API)
+  const [updatesFeed, setUpdatesFeed] = useState([
+    { username: "Rahul", date: "2026-02-05", diet: "High protein", attendance: true, notes: "Good effort today" },
+    { username: "Priya", date: "2026-02-05", diet: "Balanced", attendance: false, notes: "Rest day" },
+    { username: "Vikas", date: "2026-02-04", diet: "Low carb", attendance: true, notes: "Heavy lifting" }
+  ]);
+
   useEffect(() => {
     const trainerId = localStorage.getItem("trainer_id");
 
@@ -28,6 +49,12 @@ function TrainerDashboard() {
       .get(`/api/accounts/trainer/dashboard/?trainer_id=${trainerId}`)
       .then((res) => {
         setUsers(res.data.users || []);
+        // Example: fake stats from user list
+        setStats({
+          totalUsers: res.data.users?.length || 0,
+          presentToday: Math.floor((res.data.users?.length || 0) * 0.7),
+          sessionsToday: Math.floor((res.data.users?.length || 0) * 0.5)
+        });
       })
       .catch(() => alert("Failed to load users"));
   }, []);
@@ -77,7 +104,10 @@ function TrainerDashboard() {
       <NavbarTrainer />
 
       <div className="trainer-content">
+
+        {/* Main trainer card (your existing code) */}
         <div className="trainer-card">
+
           <h2>Trainer Dashboard</h2>
 
           {/* ✅ EXISTING USER LIST (UNCHANGED) */}
@@ -144,8 +174,67 @@ function TrainerDashboard() {
           </form>
 
         </div>
+
+        {/* 🔹 NEW SECTION: STATS CARDS */}
+        <div className="stats-grid">
+          <div className="stat-card">
+            <h4>Total Clients</h4>
+            <span className="stat-number">{stats.totalUsers}</span>
+          </div>
+          <div className="stat-card">
+            <h4>Present Today</h4>
+            <span className="stat-number">{stats.presentToday}</span>
+          </div>
+          <div className="stat-card">
+            <h4>Sessions Today</h4>
+            <span className="stat-number">{stats.sessionsToday}</span>
+          </div>
+        </div>
+
+        {/* 🔹 NEW SECTION: TODAY’S SESSIONS */}
+        <div className="card sessions-card">
+          <h3>Today’s Sessions</h3>
+          <ul className="sessions-list">
+            {sessions.map((s, i) => (
+              <li key={i} className={`session-item status-${s.status}`}>
+                <span className="session-time">{s.time}</span>
+                <span className="session-client">{s.client}</span>
+                <span className="session-type">{s.type}</span>
+                <span className="session-status">{s.status}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* 🔹 NEW SECTION: CLIENT UPDATES FEED */}
+        <div className="card updates-feed-card">
+          <h3>Client Updates</h3>
+          <div className="updates-feed">
+            {updatesFeed.map((u, i) => (
+              <div key={i} className="update-item">
+                <p><b>{u.username}</b> – {u.date}</p>
+                <p><b>Diet:</b> {u.diet}</p>
+                <p><b>Attendance:</b> {u.attendance ? "Present" : "Absent"}</p>
+                <p><b>Notes:</b> {u.notes}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* 🔹 NEW SECTION: QUICK ACTIONS */}
+        <div className="card actions-card">
+          <h3>Quick Actions</h3>
+          <div className="actions-grid">
+            <button className="action-btn">Add New Client</button>
+            <button className="action-btn">Assign Workout</button>
+            <button className="action-btn">Send Reminder</button>
+            <button className="action-btn">View Reports</button>
+          </div>
+        </div>
+
       </div>
-      <Footer/>
+
+      <Footer />
     </div>
   );
 }
